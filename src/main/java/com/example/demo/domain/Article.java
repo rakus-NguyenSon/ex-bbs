@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +55,21 @@ public class Article {
 		this.commentList = commentList;
 	}
 	
+	/**
+	 * コメントを追加する処理.
+	 * 
+	 * @param comment
+	 */
 	public void addComment(Comment comment) {
+		if (this.commentList==null) {
+			List<Comment> commentList = new ArrayList<>();
+			if(comment.getName()!=null) {
+				commentList.add(comment);
+			}
+			this.commentList = commentList;
+			return;
+		}
+	
 		this.commentList.add(comment);
 	}
 	@Override

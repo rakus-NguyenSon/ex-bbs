@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="" th:action="@{/postArticle}" method="post" th:object="${articleForm}">
+		
+		<div th:errors="*{name}" style="color:red">error</div>
+		<label for="name">投稿者名</label>
+		<input type="text" name="name" id="name" th:field="*{name}"> <br> 
+				
+		<div th:errors="*{content}" style="color:red">error</div>
+		<label for="post">投稿内容</label>
+		<textarea cols="20" rows="3" name="post" id="post" th:field="*{content}"></textarea> <br>
+		<button>記事投稿</button>
+	</form>
+	<div th:each="article:${articles}">
+	
+	
+	<form action="">
+		<hr>
+		<span>投稿者名：</span><span th:text="${article.name}"></span><br>
+		<span>投稿内容：</span><br>
+		<span th:text="${article.content}">content</span><br>
+		<button>記事削除</button>
+		<br>
+		<div th:each="comment:${article.commentList}">
+			<span>コメント名:</span>
+			<span th:text="${comment.name}">comment name</span> <br>
+			
+			<span>コメント内容:</span>
+			<span th:text="${comment.content}">comment content</span> <br>
+			<br>
+			<span th:text="${article.name}">name</span>
+			<span>さん書き込みのコメント</span>
+		</div>
+	</form>
+
+	<form action="" th:action="@{/postComment}" method="post" th:object="${commentForm}">
+		<div th:errors="*{name}" style="color:red">error</div>
+		<label for="nameComment">名前:</label><br>
+		<input type="text" name="nameComment" id="nameComment" th:field="*{name}"> <br> 
+		<input type="hidden" id="articleId" name="articleId" th:field="*{articleId}" th:value="${article.id}"> 
+		<div th:errors="*{content}" style="color:red">error</div>
+		<label for="comment">コメント:</label><br>
+		<textarea cols="20" rows="3" name="comment" id="comment" th:field="*{content}"></textarea> <br>
+		<button>コメント投稿</button>
+	</form>
+	</div>
+	
+</body>
+</html>

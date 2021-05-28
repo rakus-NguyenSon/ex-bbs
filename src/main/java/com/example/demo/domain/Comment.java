@@ -18,7 +18,7 @@ public class Comment {
 	private String content;
 	
 	/**　コメントした記事のID */
-	private Integer article_id;
+	private Integer articleId;
 	
 	public Integer getId() {
 		return id;
@@ -38,16 +38,16 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Integer getArticle_id() {
-		return article_id;
+	public Integer getArticleId() {
+		return articleId;
 	}
-	public void setArticle_id(Integer article_id) {
-		this.article_id = article_id;
+	public void setArticle_id(Integer articleId) { 
+		this.articleId = articleId;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", name=" + name + ", content=" + content + ", article_id=" + article_id + "]";
+		return "Comment [id=" + id + ", name=" + name + ", content=" + content + ", article_id=" + articleId + "]";
 	}
 	
 	
