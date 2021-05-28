@@ -44,6 +44,7 @@ public class Comment {
 	public void setArticle_id(Integer article_id) {
 		this.article_id = article_id;
 	}
+
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", name=" + name + ", content=" + content + ", article_id=" + article_id + "]";

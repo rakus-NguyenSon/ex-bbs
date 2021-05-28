@@ -54,7 +54,9 @@ public class Article {
 		this.commentList = commentList;
 	}
 	
-
+	public void addComment(Comment comment) {
+		this.commentList.add(comment);
+	}
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", name=" + name + ", content=" + content + ", commentList=" + commentList + "]";
