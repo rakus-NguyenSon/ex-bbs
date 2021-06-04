@@ -41,13 +41,13 @@ public class Comment {
 	public Integer getArticleId() {
 		return articleId;
 	}
-	public void setArticle_id(Integer articleId) { 
+	public void setArticleId(Integer articleId) { 
 		this.articleId = articleId;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", name=" + name + ", content=" + content + ", article_id=" + articleId + "]";
+		return "Comment [id=" + id + ", name=" + name + ", content=" + content + ", articleId=" + articleId + "]";
 	}
 	
 	

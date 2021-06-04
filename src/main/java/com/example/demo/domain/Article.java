@@ -72,6 +72,7 @@ public class Article {
 	
 		this.commentList.add(comment);
 	}
+	
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", name=" + name + ", content=" + content + ", commentList=" + commentList + "]";

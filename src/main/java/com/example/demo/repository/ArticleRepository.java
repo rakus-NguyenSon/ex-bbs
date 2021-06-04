@@ -58,7 +58,7 @@ public class ArticleRepository {
 					Comment comment = new Comment();
 					Integer articleID = rs.getInt("article_id");
 
-					comment.setArticle_id(rs.getInt("comment_id"));
+					comment.setArticleId(rs.getInt("comment_id"));
 					comment.setId(rs.getInt("comment_id"));
 					comment.setContent(rs.getString("comment_content"));
 					comment.setName(rs.getString("comment_name"));
@@ -91,13 +91,24 @@ public class ArticleRepository {
 	/**
 	 * 新しい記事を追加するメソッドです.
 	 * 
-	 * @param name
-	 * @param content
+	 * @param article 記事オブジェクト
 	 */
 	public void insert(Article article) {
 		
 		String sql = "Insert Into " + ARTICLE_TABLE + " (name, content) values (:name,:content);";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", article.getName()).addValue("content", article.getContent());
+		template.update(sql, param);
+	}
+	
+	/**
+	 * idにより記事とコメントを削除するメソッドです.
+	 * 
+	 * @param id 削除する記事のID
+	 */
+	public void deleteById(Integer id) {
+		String sql = "delete from " + ARTICLE_TABLE + " where id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		
 		template.update(sql, param);
 	}
 }

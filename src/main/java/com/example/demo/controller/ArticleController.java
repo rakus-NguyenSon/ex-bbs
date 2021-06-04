@@ -37,7 +37,7 @@ public class ArticleController {
 	/**
 	 * 記事を投稿するフォームのセットアップ.
 	 * 
-	 * @return
+	 * @return フォーム
 	 */
 	@ModelAttribute
 	public ArticleForm setUpForm() {
@@ -72,11 +72,11 @@ public class ArticleController {
 	/**
 	 * 記事を追加用の処理メソッドです.
 	 * 
-	 * @param form
-	 * @param result
-	 * @param redirectAttributes
-	 * @param model
-	 * @return
+	 * @param form フォーム
+	 * @param result エラー情報
+	 * @param redirectAttributes フラッシュスコープ
+	 * @param model Request　スコープ
+	 * @return 掲示板にリダイレクト
 	 */
 	@RequestMapping("/postArticle")
 	public String insertArticle(@Validated ArticleForm form, BindingResult result, 
@@ -96,24 +96,38 @@ public class ArticleController {
 	/**
 	 * コメントを追加用の処理メソッドです.
 	 * 
-	 * @param form
-	 * @param result
-	 * @param redirectAttributes
-	 * @param model
-	 * @return
+	 * @param form フォーム
+	 * @param result エラー情報
+	 * @param redirectAttributes フラッシュスコープ
+	 * @param model Request　スコープ
+	 * @return　掲示板にリダイレクト
 	 */
 	@RequestMapping("/postComment")
 	public String insertComment(@Validated CommentForm form, BindingResult result, 
 			RedirectAttributes redirectAttributes, Model model) {
 		
 		if(result.hasErrors()) {
+			model.addAttribute("submittedId", form.getArticleId());
 			return index(model);
 		}
 		
 		Comment comment = new Comment();
-		BeanUtils.copyProperties(model, comment);
+		BeanUtils.copyProperties(form, comment);
 		
 		commentRepository.insert(comment);
+		return "redirect:/";
+	}
+	
+	/**
+	 * 記事を削除の処理用クラスです．
+	 * 
+	 * @param deleteID 削除する記事のID
+	 * @return　掲示板にリダイレクト
+	 */
+	@RequestMapping("/deleteArticle")
+	public String deleteArticle(Integer deleteID) {
+		
+		articleRepository.deleteById(deleteID);
 		return "redirect:/";
 	}
 }

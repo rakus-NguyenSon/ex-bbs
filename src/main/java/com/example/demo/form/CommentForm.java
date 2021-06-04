@@ -4,6 +4,12 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * コメントフォーム
+ * 
+ * @author nhson
+ *
+ */
 public class CommentForm {
 	
 	private Integer articleId;

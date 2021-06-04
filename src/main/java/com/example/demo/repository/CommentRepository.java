@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.Comment;
 
+/**
+ * @author nhson
+ *
+ */
 @Repository
 public class CommentRepository {
 	
@@ -19,13 +23,12 @@ public class CommentRepository {
 	/**
 	 * 新しい記事を追加するメソッドです.
 	 * 
-	 * @param name
-	 * @param content
+	 * @param comment コメント情報
 	 */
 	public void insert(Comment comment) {
 		
 		String sql = "Insert Into " + COMMENT_TABLE + " (name, content,article_id) values (:name,:content,:article_id);";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", comment.getName()).addValue("content", comment.getContent()).addValue("article_id", comment.getArticleId());
 		template.update(sql, param);
-	}
+	}	
 }

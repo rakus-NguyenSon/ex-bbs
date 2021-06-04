@@ -19,13 +19,20 @@
 	<div th:each="article:${articles}">
 	
 	
-	<form action="">
+	<form action="" th:action="@{/deleteArticle}" method="post">
 		<hr>
 		<span>投稿者名：</span><span th:text="${article.name}"></span><br>
 		<span>投稿内容：</span><br>
 		<span th:text="${article.content}">content</span><br>
+		
+		<input type="hidden" name="deleteID" th:value="${article.id}"> 
+		
 		<button>記事削除</button>
-		<br>
+		
+		<button id="like" th:value="${article.id}">Like</button>
+		<span th:id="'likeCount' + ${article.id}">0</span>		<br>
+		
+		
 		<div th:each="comment:${article.commentList}">
 			<span>コメント名:</span>
 			<span th:text="${comment.name}">comment name</span> <br>
@@ -35,20 +42,31 @@
 			<br>
 			<span th:text="${article.name}">name</span>
 			<span>さん書き込みのコメント</span>
+			
+			<input type="hidden" name="deleteId" th:value="${article.id}"> 
 		</div>
 	</form>
 
 	<form action="" th:action="@{/postComment}" method="post" th:object="${commentForm}">
-		<div th:errors="*{name}" style="color:red">error</div>
+	
+		<div th:if="${article.id == submittedId}" th:errors="*{name}" style="color:red">error</div>
 		<label for="nameComment">名前:</label><br>
-		<input type="text" name="nameComment" id="nameComment" th:field="*{name}"> <br> 
-		<input type="hidden" id="articleId" name="articleId" th:field="*{articleId}" th:value="${article.id}"> 
-		<div th:errors="*{content}" style="color:red">error</div>
-		<label for="comment">コメント:</label><br>
-		<textarea cols="20" rows="3" name="comment" id="comment" th:field="*{content}"></textarea> <br>
+		<input th:if="${article.id == submittedId}" type="text" name="nameComment" id="nameComment" th:field="*{name}"> <br> 
+		<input th:unless="${article.id == submittedId}" type="text" name="name" id="nameComment">
+		
+		
+		<input type="hidden" name="articleId" th:value="${article.id}"> 
+		
+		<div th:if="${article.id == submittedId}" th:errors="*{content}" style="color:red">error</div>
+		<label for="conntent">コメント:</label><br>
+		<textarea th:if="${article.id == submittedId}" cols="20" rows="3" name="comment" id="conntent" th:field="*{content}"></textarea> 
+		<textarea th:unless="${article.id == submittedId}" cols="20" rows="3" name="content" id="conntent"></textarea> 
+		
+		<br>
 		<button>コメント投稿</button>
 	</form>
 	</div>
-	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script th:src=@{/js/like.js}></script>
 </body>
 </html>
